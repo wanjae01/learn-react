@@ -1,3 +1,5 @@
+import Card from "./components/Card";
+
 function App() {
   // console.log("App.js");
 
@@ -56,8 +58,85 @@ function App() {
     user2.isLoggedIn = true;
   }
 
-
-  return <div>Hello world</div>;
+  return (
+  <>
+   
+      <div>
+      <div>Hello World</div>
+      <div> Hello world</div>
+      </div>
+  
+    <Card />
+    </>
+  );
 }
 
+
 export default App;
+
+// default parameter
+// 함수 정의
+// const add = (a, b) => {
+//  console.log("a", a);
+//  console.log("b", b);
+//  return a + b;
+// }
+
+// console.log("add", add(1));
+
+const add = (a = 0, b = 0) => {
+  console.log("a", a);
+  console.log("b", b);
+  return a + b;
+};
+console.log("add", add(1));
+
+// 함수 정의
+const greeting = (input = "고객") => {
+  return `${input}님, 반갑습니다!`; //백틱으로 해야한다. 따옴표 아님
+};
+
+// 함수 실행
+console.log("김완재", greeting());
+
+// 구조분해할당
+
+let studentList = ['김김김', '이이이'];
+let [firstStudent, secondStudent, third = "박박박"] = studentList;
+console.log("~first Student", firstStudent)
+console.log("~second Student", secondStudent);
+console.log("~third", third);
+
+const addStudent = () => {
+  const addStudentList = [...studentList, "최최최22"]
+  console.log("addstudentlist", addStudentList);
+  console.log("studentlist", studentList);
+};
+
+addStudent();
+
+// 객체 구조분해할당
+
+let person = {
+  name: "김완재",
+  age: 33,
+  email: "wanjae@gmail.com",
+};
+
+const {name, age, email} = person;
+console.log("~name:", name);
+console.log("~name:", age);
+console.log("~name:", email);
+
+const messageItem = {
+  messageId: 1,
+  message: "안녕하세요",
+}
+
+const copyPerson = {
+  ...person,
+  ...messageItem,
+  name: "완두콩", //값 수정하기
+  nickName: "킹왕짱", //값 추가하기
+};
+console.log("~copyPerson", copyPerson);
