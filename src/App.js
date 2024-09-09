@@ -1,4 +1,6 @@
 import Card from "./components/Card";
+import Login from "./pages/Login";
+import "./styles.css";
 
 function App() {
   // console.log("App.js");
@@ -59,15 +61,18 @@ function App() {
   }
 
   return (
-  <>
-   
+  <div className="App">
+{/*    
       <div>
       <div>Hello World</div>
       <div> Hello world</div>
-      </div>
-  
+      </div> */}
+{/*   
     <Card />
-    </>
+    <Card /> */}
+    <Login />
+
+    </div>
   );
 }
 
