@@ -1,6 +1,8 @@
+import { useEffect, useState } from "react";
 import Card from "./components/Card";
 import Login from "./pages/Login";
 import "./styles.css";
+import ThemeButton from "./components/ThemeButton";
 
 function App() {
   // console.log("App.js");
@@ -33,6 +35,12 @@ function App() {
   // }
 
   // // userInput = e.target.value
+const [messagees, setMessages] = useState([{
+  id: 1,
+  text: "첫번째 메세지"
+},
+]);
+
 
   const user = {
     isLoggedIn: true,
@@ -60,18 +68,57 @@ function App() {
     user2.isLoggedIn = true;
   }
 
-  return (
-  <div className="App">
-{/*    
-      <div>
-      <div>Hello World</div>
-      <div> Hello world</div>
-      </div> */}
-{/*   
-    <Card />
-    <Card /> */}
-    <Login />
+  const [title, setTitle] = useState("초기타이틀");
 
+  const handleClick = () => {
+    window.location.href = "https://www.naver.com/";
+  };
+
+  // 다크모드 변경 논리
+  /**
+   * 1. ThemeButton에 온클릭 이벤트를 만든다
+   * 2. 버튼이 눌러졌다는 이벤트를 부모 컴포넌트에 전송한다. (onTheme)
+   * 3. 부모 컴포넌트가 이벤트를 받으면 div 클래스를 변환하는 함수를 생성한다. (handleTheme)
+   * 4. [state] isDarkMode 라는 state를 생성한다.
+   * 5. isDarkMode state를 wrap 클래스가 있는 div에 className에 속성으로 넣어준다
+   * 5-1. 다크모드인 경우엔 'dark-mode'라는 클래스를 준다.
+   * 5-2. 다크모드가 아닌 경우엔 'light-mode'라는 클래스를 준다.
+   * 6. handleTheme함수에서 isDarkMode의 값을 토글로 변경해준다.
+   * 
+   * 7. ThemeButton 컴포넌트에 isDarkMode라는 props를 내려준다.
+   * 7-1. 이 props에는 isDarkMode의 값을 넣어준다.
+   * 8. ThemeButton 컴포넌트에 isDarkMode의 값을 받아서 true인 경우엔 '다크모드' false인 경우엔 '라이트모드' 라는 텍스트를 UI에 보여준다.
+   * 
+   * 9. 버튼을 클릭한다.
+   * 10. 작동이 잘 되는지 바뀌는걸 확인한다.
+   */
+
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const handleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    alert(isDarkMode ? "다크 모드" : "라이트 모드")
+  }, [isDarkMode]);
+
+  return (
+  <div className={`wrap ${isDarkMode ? "dark-mode" : "light-mode"}`}>
+ 
+    <Card title={title}
+          subText="라해스개부캠"
+          onCardButtonClick={handleClick}
+        />
+    <Card />
+    {/* <Login /> */}
+    {/* {ThemeButton 컴포넌트} */}
+    <ThemeButton isDarkMode={isDarkMode} onTheme={handleTheme}/>
+
+  {/* 삼항연산자 */}
+  {isLoggedIn ? <h2>환영합니다~!</h2> : <h2>로그인 해주세요</h2>}
     </div>
   );
 }
@@ -145,3 +192,4 @@ const copyPerson = {
   nickName: "킹왕짱", //값 추가하기
 };
 console.log("~copyPerson", copyPerson);
+
